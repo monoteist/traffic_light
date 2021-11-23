@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #local apps
     'clients',
     'legal_entities',
+    'departments',
 
     # Other apps
     'phonenumber_field',

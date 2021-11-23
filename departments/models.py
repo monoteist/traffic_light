@@ -4,9 +4,9 @@ from django.db import models
 class Department(models.Model):
     title = models.CharField(max_length=150, verbose_name='Название')
     legal_entity = models.ForeignKey(
-        'legal_entities.LegalEntity', on_delete=models.SET_NULL, null=True)
+        'legal_entities.LegalEntity', on_delete=models.SET_NULL, null=True, verbose_name='Юридическое лицо')
     client = models.ForeignKey(
-        'clients.Client', on_delete=models.SET_NULL, null=True)
+        'clients.Client', on_delete=models.SET_NULL, null=True, verbose_name='Клиент')
 
     def __str__(self) -> str:
         return self.title
@@ -15,7 +15,6 @@ class Department(models.Model):
         if not self.id:
             max = Department.objects.aggregate(
                 id_max=models.Max('id'))['id_max']
-            print(max)
             self.id = 101 if max is None else max * 100 + 3
         super().save(*args, **kwargs)
 

@@ -37,7 +37,7 @@ class Client(AbstractUser):
     whatsapp = PhoneNumberField(unique=True, null=False, blank=False)
     viber = PhoneNumberField(unique=True, null=False, blank=False)
     legal_entity = models.ForeignKey(
-        'legal_entities.LegalEntity', on_delete=models.SET_NULL, null=True)
+        'legal_entities.LegalEntity', on_delete=models.SET_NULL, null=True, verbose_name='Юридическое лицо')
 
     def __str__(self) -> str:
         return self.username
@@ -45,7 +45,6 @@ class Client(AbstractUser):
     def save(self, *args, **kwargs):
         if not self.id:
             max = Client.objects.aggregate(id_max=models.Max('id'))['id_max']
-            print(max)
             self.id = 101 if max is None else max * 100 + 1
         super().save(*args, **kwargs)
 

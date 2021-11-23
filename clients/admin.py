@@ -26,7 +26,7 @@ class ClientAdmin(admin.ModelAdmin):
         FBInline,
     ]
     fields = ['username', 'first_name', 'last_name',
-              'second_name', 'phone', 'type_of', 'is_active', 'gender', 'timezone', 'odnoklassniki', 'instagram', 'telegram', 'whatsapp', 'viber']
+              'second_name', 'phone', 'type_of', 'is_active', 'gender', 'timezone', 'odnoklassniki', 'instagram', 'telegram', 'whatsapp', 'viber', 'legal_entity']
     list_display = ['username', 'first_name', 'last_name']
 
 

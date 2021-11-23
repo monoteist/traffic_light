@@ -16,7 +16,6 @@ class LegalEntity(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             max = LegalEntity.objects.aggregate(id_max=models.Max('id'))['id_max']
-            print(max)
             self.id = 101 if max is None else max * 100 + 2
         super().save(*args, **kwargs)
 
