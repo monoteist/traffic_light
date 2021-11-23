@@ -42,9 +42,11 @@ INSTALLED_APPS = [
     'clients',
     'legal_entities',
     'departments',
+    'api'
 
     # Other apps
     'phonenumber_field',
+    'rest_framework'
 ]
 
 AUTH_USER_MODEL = 'clients.Client'
