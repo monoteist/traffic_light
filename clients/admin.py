@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.db.models import fields
 from clients.models import Client, Email, Phone, VK, FB
 
 

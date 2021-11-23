@@ -37,7 +37,7 @@ class Client(AbstractUser):
     whatsapp = PhoneNumberField(unique=True, null=False, blank=False)
     viber = PhoneNumberField(unique=True, null=False, blank=False)
     legal_entity = models.ForeignKey(
-        'legal_entities.LegalEntity', on_delete=models.SET_NULL, related_name='legal_entities', null=True)
+        'legal_entities.LegalEntity', on_delete=models.SET_NULL, null=True)
 
     def __str__(self) -> str:
         return self.username
