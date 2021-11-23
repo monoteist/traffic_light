@@ -5,6 +5,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from legal_entities.models import LegalEntity
+
 
 class Client(AbstractUser):
     TYPE_CHOICES = (
@@ -36,6 +38,7 @@ class Client(AbstractUser):
     telegram = models.CharField(max_length=30, unique=True)
     whatsapp = PhoneNumberField(unique=True, null=False, blank=False)
     viber = PhoneNumberField(unique=True, null=False, blank=False)
+    legal_entity = models.ForeignKey('legal_entities.LegalEntity', on_delete=models.SET_NULL, related_name='legal_entities', null=True) 
 
     def __str__(self) -> str:
         return self.first_name
