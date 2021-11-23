@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class LegalEntity(models.Model):
     full_title = models.CharField(
         max_length=250, verbose_name='Название полное')
@@ -13,7 +12,13 @@ class LegalEntity(models.Model):
 
     def __str__(self) -> str:
         return self.full_title
-    
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            max = LegalEntity.objects.aggregate(id_max=models.Max('id'))['id_max']
+            print(max)
+            self.id = 101 if max is None else max * 100 + 1
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Юридическое лицо'

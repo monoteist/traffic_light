@@ -1,11 +1,8 @@
 
 import pytz
 from phonenumber_field.modelfields import PhoneNumberField
-
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
-from legal_entities.models import LegalEntity
 
 
 class Client(AbstractUser):
@@ -22,7 +19,8 @@ class Client(AbstractUser):
     )
 
     TIMEZONES = tuple(zip(pytz.all_timezones, pytz.all_timezones))
-    phone = PhoneNumberField(unique=True, null=False, blank=False, verbose_name='Телефон')
+    phone = PhoneNumberField(unique=True, null=False,
+                             blank=False, verbose_name='Телефон')
     second_name = models.CharField(
         max_length=150, blank=True, verbose_name='Отчество')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -38,17 +36,18 @@ class Client(AbstractUser):
     telegram = models.CharField(max_length=30, unique=True)
     whatsapp = PhoneNumberField(unique=True, null=False, blank=False)
     viber = PhoneNumberField(unique=True, null=False, blank=False)
-    legal_entity = models.ForeignKey('legal_entities.LegalEntity', on_delete=models.SET_NULL, related_name='legal_entities', null=True) 
+    legal_entity = models.ForeignKey(
+        'legal_entities.LegalEntity', on_delete=models.SET_NULL, related_name='legal_entities', null=True)
 
     def __str__(self) -> str:
-        return self.first_name
-    
-    # def save(self, *args, **kwargs):
-    #     is_new = self.pk is None
-    #     if is_new:
-    #         super().save(*args, **kwargs)
-    #         self.id = (self.id * 100) + 1
-    #     super().save(*args, **kwargs)
+        return self.username
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            max = Client.objects.aggregate(id_max=models.Max('id'))['id_max']
+            print(max)
+            self.id = 101 if max is None else max * 100 + 1
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Клиент'
@@ -56,7 +55,8 @@ class Client(AbstractUser):
 
 
 class Phone(models.Model):
-    phone = PhoneNumberField(unique=True, null=False, blank=False, verbose_name='Телефон')
+    phone = PhoneNumberField(unique=True, null=False,
+                             blank=False, verbose_name='Телефон')
     client = models.ForeignKey(
         'Client', on_delete=models.CASCADE, related_name='phones')
 
