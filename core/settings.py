@@ -37,16 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'phonenumber_field',
 
-    #local apps
+    
     'clients',
     'legal_entities',
     'departments',
     'api'
 
     # Other apps
-    'phonenumber_field',
-    'rest_framework'
+    
+    
 ]
 
 AUTH_USER_MODEL = 'clients.Client'

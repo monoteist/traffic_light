@@ -19,6 +19,9 @@ class Client(AbstractUser):
     )
 
     TIMEZONES = tuple(zip(pytz.all_timezones, pytz.all_timezones))
+
+    id = models.IntegerField(unique=True)
+    custom_id = models.AutoField(primary_key=True)
     phone = PhoneNumberField(unique=True, null=False,
                              blank=False, verbose_name='Телефон')
     second_name = models.CharField(
@@ -37,15 +40,15 @@ class Client(AbstractUser):
     whatsapp = PhoneNumberField(unique=True, null=False, blank=False)
     viber = PhoneNumberField(unique=True, null=False, blank=False)
     legal_entity = models.ForeignKey(
-        'legal_entities.LegalEntity', on_delete=models.SET_NULL, null=True, verbose_name='Юридическое лицо')
+        'legal_entities.LegalEntity', on_delete=models.SET_NULL, null=True, verbose_name='Юридическое лицо', blank=True)
 
     def __str__(self) -> str:
         return self.username
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            max = Client.objects.aggregate(id_max=models.Max('id'))['id_max']
-            self.id = 101 if max is None else max * 100 + 1
+        if not self.pk:
+            max = Client.objects.aggregate(id_max=models.Max('custom_id'))['id_max']
+            self.id = 101 if max is None else (max + 1) * 100 + 1
         super().save(*args, **kwargs)
 
     class Meta:
