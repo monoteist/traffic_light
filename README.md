@@ -88,4 +88,14 @@ Django 3+, Python 3.5+, база на свое усмотрение
 
 Приложение доступно по пути `http://127.0.0.1:8000/admin/`
 
-Для входа исподьзуйте имя пользователя `admin` пароль `admin`
+Для входа в админ панель исподьзуйте имя пользователя `admin` пароль `admin`
+
+#### API
+
+Добавлено 6 endpoint'ов 
+
+`clients/` `clients/<int:pk>` 
+
+`legal_entities/` `legal_entities/<int:pk>`
+
+`departments/` `departments/<int:pk>`
