@@ -63,7 +63,7 @@ class Phone(models.Model):
         'Client', on_delete=models.CASCADE, related_name='phones')
 
     def __str__(self) -> str:
-        return self.phone
+        return str(self.phone)
 
     class Meta:
         verbose_name = 'Телефон'

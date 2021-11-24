@@ -1,10 +1,8 @@
 from django.contrib import admin
 from legal_entities.models import LegalEntity
 
-from clients.models import Client
+class LegalEntityAdmin(admin.ModelAdmin):
+    fields = ('full_title', 'abbreviated_title', 'inn', 'kpp')
 
 
-class ClientInline(admin.TabularInline):
-    model = Client
-
-admin.site.register(LegalEntity)
+admin.site.register(LegalEntity, LegalEntityAdmin)

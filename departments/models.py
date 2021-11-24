@@ -6,9 +6,9 @@ class Department(models.Model):
     custom_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=150, verbose_name='Название')
     legal_entity = models.ForeignKey(
-        'legal_entities.LegalEntity', on_delete=models.SET_NULL, null=True, verbose_name='Юридическое лицо')
+        'legal_entities.LegalEntity', on_delete=models.SET_NULL, null=True, verbose_name='Юридическое лицо', blank=True)
     client = models.ForeignKey(
-        'clients.Client', on_delete=models.SET_NULL, null=True, verbose_name='Клиент')
+        'clients.Client', on_delete=models.SET_NULL, null=True, verbose_name='Клиент', blank=True)
 
     def __str__(self) -> str:
         return self.title
